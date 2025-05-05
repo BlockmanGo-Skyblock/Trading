@@ -1,29 +1,22 @@
 import { auth } from './firebase.js';
-import { createUserWithEmailAndPassword, sendEmailVerification } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js';
+import { GoogleAuthProvider, signInWithPopup } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js';
 
-document.getElementById('signup-form').addEventListener('submit', async function (e) {
-  e.preventDefault();
-
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
+// Get the sign-in button element
+document.getElementById('google-signin-btn').addEventListener('click', async function() {
+  const provider = new GoogleAuthProvider();
 
   try {
-    // Create a new user with email and password
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
+    // Use Firebase to sign in with Google
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
 
-    // Check if user is created before sending the email
-    console.log("User created:", user);
+    console.log("Google Sign-In successful:", user);
 
-    // Send verification email
-    await sendEmailVerification(user);
-    alert("A verification email has been sent to your email address. Please check your inbox.");
-
-    // Redirect to a page asking the user to verify their email
-    window.location.href = "verify-email.html";
+    // Redirect to the profile setup page
+    window.location.href = "register-details.html"; // Redirect user to set username and profile
 
   } catch (error) {
-    console.error(error.message);
-    alert("Error during sign-up: " + error.message);
+    console.error("Error during Google Sign-In:", error.message);
+    alert("Error signing in with Google: " + error.message);
   }
 });
