@@ -1,7 +1,7 @@
 /* General Body Styling */
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #1f1f2e; /* Dark background */
+    font-family: 'Arial', sans-serif;
+    background-color: #141416; /* Dark background */
     color: #ffffff; /* White text */
     display: flex;
     justify-content: center;
@@ -9,32 +9,32 @@ body {
     height: 100vh;
     margin: 0;
     flex-direction: column;
+    text-align: center;
 }
 
 /* Header Styling */
 h2 {
-    color: #fff;
-    font-size: 2rem;
-    margin-bottom: 20px;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    text-align: center;
+    color: #ffffff;
+    font-size: 3rem;
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
 }
 
 /* Form Styling */
 form {
-    background: linear-gradient(45deg, rgba(29, 53, 87, 0.8), rgba(75, 0, 130, 0.8)); /* Dark gradient */
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(135deg, rgba(3, 169, 244, 0.7), rgba(136, 14, 79, 0.7)); /* Gradient */
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
     width: 100%;
-    max-width: 400px;
+    max-width: 500px;
     text-align: center;
 }
 
 /* Input fields */
 input[type="text"], input[type="email"], input[type="password"], input[type="file"] {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     margin: 10px 0;
     border: 2px solid #5f5f6e;
     border-radius: 8px;
@@ -42,21 +42,22 @@ input[type="text"], input[type="email"], input[type="password"], input[type="fil
     color: #ffffff;
     font-size: 1rem;
     box-sizing: border-box;
+    transition: border-color 0.3s ease;
 }
 
 /* Focus on input fields */
 input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, input[type="file"]:focus {
-    border-color: #9b59b6; /* Purple focus border */
+    border-color: #ff4081; /* Pink focus border */
     outline: none;
 }
 
 /* Button Styling */
 button {
-    background: linear-gradient(45deg, #6a1b9a, #9b59b6); /* Purple gradient button */
+    background: linear-gradient(135deg, #ff4081, #ff80ab); /* Neon pink gradient button */
     color: white;
     border: none;
-    padding: 12px 25px;
-    font-size: 1.2rem;
+    padding: 15px 30px;
+    font-size: 1.3rem;
     border-radius: 8px;
     cursor: pointer;
     transition: background 0.3s ease;
@@ -66,14 +67,7 @@ button {
 
 /* Hover effect for the button */
 button:hover {
-    background: linear-gradient(45deg, #9b59b6, #6a1b9a);
-}
-
-/* Error message styling */
-.alert {
-    color: red;
-    font-size: 0.9rem;
-    margin-top: 10px;
+    background: linear-gradient(135deg, #ff80ab, #ff4081);
 }
 
 /* Google sign-in button */
@@ -81,7 +75,7 @@ button:hover {
     background-color: #4285F4;
     color: white;
     border: none;
-    padding: 12px 30px;
+    padding: 15px 30px;
     font-size: 1.2rem;
     border-radius: 8px;
     cursor: pointer;
@@ -104,5 +98,23 @@ input[type="file"] {
 }
 
 input[type="file"]:focus {
-    border-color: #9b59b6; /* Purple border on focus */
+    border-color: #ff4081; /* Neon pink focus border */
+}
+
+/* Error message styling */
+.alert {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+/* Animation for smoother user experience */
+@keyframes buttonAnimation {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+button:active, #google-signin-btn:active {
+    animation: buttonAnimation 0.2s ease-out;
 }
