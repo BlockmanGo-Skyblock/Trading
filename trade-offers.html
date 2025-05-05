@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trade Offers</title>
+  <link rel="stylesheet" href="style.css">  <!-- Your main styles -->
+  <link rel="stylesheet" href="style-trade.css"> <!-- New trade page styles -->
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div id="navbar">
+    <a href="home.html">Home</a>
+    <button id="logout-btn">Logout</button>
+  </div>
+
+  <div id="trade-offers">
+    <!-- Example of a trade offer card -->
+    <div class="trade-card">
+      <h3>Trade Offer 1</h3>
+      <p>Item: Sword</p>
+      <p>Description: Looking to trade for some coins!</p>
+      <div>
+        <button class="trade-reaction" data-reaction="W">W</button>
+        <button class="trade-reaction" data-reaction="L">L</button>
+      </div>
+      <button class="view-offer-btn">View Details</button>
+    </div>
+    
+    <!-- More trade offer cards will be dynamically inserted here -->
+  </div>
+
+  <!-- Modal for creating new offer (hidden by default) -->
+  <div id="new-offer-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Create New Trade Offer</h2>
+      <form id="new-trade-form">
+        <input type="text" id="trade-title" placeholder="Trade Title" required>
+        <textarea id="trade-description" placeholder="Description" required></textarea>
+        <input type="file" id="trade-image" accept="image/*">
+        <button type="submit">Create Offer</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>  <!-- Your JavaScript for trade offers -->
+</body>
+</html>
