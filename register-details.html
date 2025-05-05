@@ -1,22 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create Your Profile</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Complete Profile</title>
+  <link rel="stylesheet" href="styles/profile.css" />
 </head>
 <body>
-  <h2>Create Your Profile</h2>
+  <div class="container">
+    <h1>Complete Your Profile</h1>
+    <form id="details-form">
+      <label for="username">Choose a Username</label>
+      <input type="text" id="username" required minlength="4" maxlength="12" />
 
-  <form id="details-form">
-    <input type="text" id="username" placeholder="Username" required />
-    <input type="file" id="profile-pic" accept="image/*" required />
-    <button type="submit">Save Profile</button>
-  </form>
+      <label for="profile-pic">Upload Profile Picture</label>
+      <input type="file" id="profile-pic" accept="image/*" required />
 
-  <div id="error-message" class="alert"></div>
+      <button type="submit">Save Profile</button>
+    </form>
+  </div>
 
-  <script type="module" src="register-details.js"></script>
+  <script type="module">
+    import { auth } from './firebase.js';
+    import {
+      getFirestore, doc, getDoc, setDoc, collection, query, where, getDocs
+    } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js';
+    import {
+      getStorage, ref, uploadBytes, getDownloadURL
+    } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-storage.js';
+    import {
+      onAuthStateChanged
+    } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js';
+
+    const db = getFirestore();
+    const storage = getStorage();
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        window.location.href = "index.html";
+        return;
+      }
+
+      // Check if username already exists
+      const userRef = doc(db, "users", user.uid);
+      const userSnap = await getDoc(userRef);
+
+      if (userSnap.exists() && userSnap.data().username) {
+        // Redirect if already registered
+        window.location.href = "home.html";
+        return;
+      }
+
+      document.getElementById("details-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const username = document.getElementById("username").value.trim();
+        const file = document.getElementById("profile-pic").files[0];
+
+        if (username.length < 4 || username.length > 12) {
+          return alert("Username must be 4–12 characters.");
+        }
+
+        if (!file) return alert("Select a profile picture.");
+
+        // Ensure username is unique
+        const usernameQuery = query(collection(db, "users"), where("username", "==", username));
+        const result = await getDocs(usernameQuery);
+        if (!result.empty) return alert("Username already taken.");
+
+        try {
+          // Upload profile pic
+          const storageRef = ref(storage, `profile-pics/${user.uid}`);
+          await uploadBytes(storageRef, file);
+          const picURL = await getDownloadURL(storageRef);
+
+          // Save user profile
+          await setDoc(userRef, {
+            uid: user.uid,
+            email: user.email,
+            username,
+            profilePic: picURL,
+          });
+
+          alert("Profile saved!");
+          window.location.href = "home.html";
+        } catch (err) {
+          alert("Error saving profile: " + err.message);
+        }
+      });
+    });
+  </script>
 </body>
 </html>
