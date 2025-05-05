@@ -3,23 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Complete Your Profile</title>
-  <script type="module" src="register-details.js"></script>
+  <title>Create Profile</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h2>Complete Your Profile</h2>
+  <h2>Create Your Profile</h2>
 
   <form id="details-form">
-    <label for="username">Choose a username:</label>
-    <input type="text" id="username" name="username" required placeholder="Username (4-12 characters)">
-    <br><br>
-
-    <label for="profile-pic">Upload Profile Picture:</label>
-    <input type="file" id="profile-pic" name="profile-pic" accept="image/*" required>
-    <br><br>
-
+    <input type="text" id="username" placeholder="Username" required />
+    <input type="file" id="profile-pic" accept="image/*" required />
     <button type="submit">Save Profile</button>
   </form>
 
+  <div id="error-message" class="alert"></div>
+
+  <script type="module" src="register-details.js"></script>
 </body>
 </html>
