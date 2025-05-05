@@ -90,7 +90,7 @@
 
     onAuthStateChanged(auth, async (user) => {
       if (!user) {
-        window.location.href = "index.html";
+        window.location.href = "index.html";  // Redirect to login if not logged in
         return;
       }
 
@@ -98,7 +98,7 @@
       const userSnap = await getDoc(userRef);
 
       if (userSnap.exists() && userSnap.data().username) {
-        window.location.href = "home.html";  // If profile is complete, redirect to main page
+        window.location.href = "home.html";  // Redirect to trading page if profile is complete
         return;
       }
 
@@ -124,7 +124,7 @@
         });
 
         alert("Profile saved!");
-        window.location.href = "home.html";  // Redirect to main page after profile completion
+        window.location.href = "home.html";  // Redirect to trading page after saving profile
       });
     });
   </script>
