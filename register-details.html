@@ -5,16 +5,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Complete Profile</title>
   <link rel="stylesheet" href="styles/profile.css" />
+  <style>
+    body {
+      background: #0c0c1c;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .container {
+      background: #1a1a2e;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px #5918df;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+    .avatar-options {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0;
+    }
+    .avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: 0.3s;
+      object-fit: cover;
+    }
+    .avatar.selected {
+      border-color: #8f00ff;
+    }
+    button {
+      background: #5918df;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
-    <h1>Complete Your Profile</h1>
+    <h1>Choose Your Profile</h1>
     <form id="details-form">
-      <label for="username">Choose a Username</label>
-      <input type="text" id="username" required minlength="4" maxlength="12" />
+      <label for="username">Pick a Username</label>
+      <input type="text" id="username" required minlength="4" maxlength="12" style="margin-top:10px;width: 100%;padding: 10px;border-radius: 8px;border: none;margin-bottom: 20px;" />
 
-      <label for="profile-pic">Upload Profile Picture</label>
-      <input type="file" id="profile-pic" accept="image/*" required />
+      <div class="avatar-options" id="avatar-options">
+        <img class="avatar" src="https://i.ytimg.com/vi/yMr2FJaB8V8/maxresdefault.jpg" alt="Avatar 1">
+        <img class="avatar" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZqzzGsEztO89Q3tD3ggsaCzHDz3HOx6pv_w&s" alt="Avatar 2">
+        <img class="avatar" src="https://preview.redd.it/nfi6cgvhyvc71.jpg?auto=webp&s=f627057a2b06f9e4e0d840b7a58a1b3f888ca281" alt="Avatar 3">
+      </div>
 
       <button type="submit">Save Profile</button>
     </form>
@@ -25,15 +76,19 @@
     import {
       getFirestore, doc, getDoc, setDoc, collection, query, where, getDocs
     } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js';
-    import {
-      getStorage, ref, uploadBytes, getDownloadURL
-    } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-storage.js';
-    import {
-      onAuthStateChanged
-    } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js';
+    import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js';
 
     const db = getFirestore();
-    const storage = getStorage();
+    let selectedAvatar = null;
+
+    const avatars = document.querySelectorAll(".avatar");
+    avatars.forEach(avatar => {
+      avatar.addEventListener("click", () => {
+        avatars.forEach(a => a.classList.remove("selected"));
+        avatar.classList.add("selected");
+        selectedAvatar = avatar.src;
+      });
+    });
 
     onAuthStateChanged(auth, async (user) => {
       if (!user) {
@@ -41,12 +96,10 @@
         return;
       }
 
-      // Check if username already exists
       const userRef = doc(db, "users", user.uid);
       const userSnap = await getDoc(userRef);
 
       if (userSnap.exists() && userSnap.data().username) {
-        // Redirect if already registered
         window.location.href = "home.html";
         return;
       }
@@ -55,38 +108,25 @@
         e.preventDefault();
 
         const username = document.getElementById("username").value.trim();
-        const file = document.getElementById("profile-pic").files[0];
+        if (!selectedAvatar) return alert("Please select an avatar.");
 
         if (username.length < 4 || username.length > 12) {
           return alert("Username must be 4–12 characters.");
         }
 
-        if (!file) return alert("Select a profile picture.");
-
-        // Ensure username is unique
         const usernameQuery = query(collection(db, "users"), where("username", "==", username));
         const result = await getDocs(usernameQuery);
         if (!result.empty) return alert("Username already taken.");
 
-        try {
-          // Upload profile pic
-          const storageRef = ref(storage, `profile-pics/${user.uid}`);
-          await uploadBytes(storageRef, file);
-          const picURL = await getDownloadURL(storageRef);
+        await setDoc(userRef, {
+          email: user.email,
+          uid: user.uid,
+          username,
+          profilePic: selectedAvatar,
+        });
 
-          // Save user profile
-          await setDoc(userRef, {
-            uid: user.uid,
-            email: user.email,
-            username,
-            profilePic: picURL,
-          });
-
-          alert("Profile saved!");
-          window.location.href = "home.html";
-        } catch (err) {
-          alert("Error saving profile: " + err.message);
-        }
+        alert("Profile saved!");
+        window.location.href = "home.html";
       });
     });
   </script>
