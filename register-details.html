@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Complete Profile</title>
-  <link rel="stylesheet" href="profile.css" />
+  <link rel="stylesheet" href="styles/profile.css" />
   <style>
     body {
       background: #0c0c1c;
@@ -73,7 +73,7 @@
 
   <script type="module">
     import { auth } from './firebase.js';
-    import { getFirestore, doc, getDoc, setDoc, query, collection, where, getDocs } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js';
+    import { getFirestore, doc, getDoc, setDoc, collection, query, where, getDocs } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js';
     import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js';
 
     const db = getFirestore();
@@ -90,7 +90,7 @@
 
     onAuthStateChanged(auth, async (user) => {
       if (!user) {
-        window.location.href = "index.html";  // Redirect to login if not logged in
+        window.location.href = "index.html"; // Redirect to login page if not logged in
         return;
       }
 
@@ -98,7 +98,7 @@
       const userSnap = await getDoc(userRef);
 
       if (userSnap.exists() && userSnap.data().username) {
-        window.location.href = "home.html";  // Redirect to trading page if profile is complete
+        window.location.href = "home.html"; // Redirect to home page if user profile is already set up
         return;
       }
 
@@ -124,7 +124,7 @@
         });
 
         alert("Profile saved!");
-        window.location.href = "home.html";  // Redirect to trading page after saving profile
+        window.location.href = "home.html"; // Redirect to home page after profile setup
       });
     });
   </script>
