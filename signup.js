@@ -12,6 +12,9 @@ document.getElementById('signup-form').addEventListener('submit', async function
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
+    // Check if user is created before sending the email
+    console.log("User created:", user);
+
     // Send verification email
     await sendEmailVerification(user);
     alert("A verification email has been sent to your email address. Please check your inbox.");
