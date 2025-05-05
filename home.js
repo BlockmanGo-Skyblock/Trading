@@ -2,7 +2,7 @@
 import { auth } from './firebase.js';
 import {
   getFirestore, doc, getDoc
-} from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js';
+} from 'https://blockmango-skyblock.github.io/Trading/index.html';
 
 const db = getFirestore();
 
