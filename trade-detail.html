@@ -3,20 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trade Offer Detail</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Trade Offer Details</title>
+  <link rel="stylesheet" href="style.css">  <!-- Your main styles -->
+  <link rel="stylesheet" href="style-trade.css"> <!-- New trade page styles -->
 </head>
 <body>
-  <div id="trade-detail-container">
-    <h3 id="item-name"></h3>
-    <p id="description"></p>
-    <p>Price: <span id="price"></span></p>
-    <p>Offered by: <span id="offered-by"></span></p>
-    <button id="send-trade-request">Send Trade Request</button>
-    <div id="trade-status"></div>
-    <button id="complete-trade-btn">Complete Trade</button>
+
+  <!-- Navbar -->
+  <div id="navbar">
+    <a href="home.html">Home</a>
+    <button id="logout-btn">Logout</button>
   </div>
 
-  <script type="module" src="trade-detail.js"></script>
+  <div id="trade-detail-container">
+    <h3>Trade Offer: Sword for Coins</h3>
+    <p>Description: Looking to trade my sword for some in-game coins. I need 50 coins in exchange for the sword.</p>
+
+    <div id="trade-status">
+      <strong>Status:</strong> Waiting for response
+    </div>
+
+    <button id="send-trade-request">Send Trade Request</button>
+    <button id="complete-trade-btn">Complete Trade</button>
+    
+    <!-- Feedback/Rating Section -->
+    <div id="trade-feedback">
+      <p><strong>Rate this User:</strong></p>
+      <button>👍</button>
+      <button>👎</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>  <!-- Your JavaScript for trade details -->
 </body>
 </html>
