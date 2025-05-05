@@ -1,37 +1,45 @@
 import { auth } from './firebase.js';
 import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
+  sendSignInLinkToEmail,
+  isSignInWithEmailLink,
+  signInWithEmailLink
 } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js';
 
-// Signup
-document.getElementById("signup-form")?.addEventListener("submit", function (e) {
-  e.preventDefault();
-  const email = document.getElementById("signup-email").value;
-  const password = document.getElementById("signup-password").value;
+// Action code settings for passwordless email link
+const actionCodeSettings = {
+  url: 'https://blockmango-skyblock.github.io/Trading/', // Your GitHub Pages URL
+  handleCodeInApp: true,
+};
 
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      alert("Account created successfully!");
-      window.location.href = "index.html";
+// Send the magic sign-in link to the user's email
+document.getElementById("emailLinkForm")?.addEventListener("submit", function (e) {
+  e.preventDefault();
+  const email = document.getElementById("email").value;
+
+  sendSignInLinkToEmail(auth, email, actionCodeSettings)
+    .then(() => {
+      window.localStorage.setItem('emailForSignIn', email);
+      alert("Check your email for the sign-in link!");
     })
     .catch((error) => {
-      alert("Error: " + error.message);
+      alert("Error sending link: " + error.message);
     });
 });
 
-// Login
-document.getElementById("login-form")?.addEventListener("submit", function (e) {
-  e.preventDefault();
-  const email = document.getElementById("login-email").value;
-  const password = document.getElementById("login-password").value;
+// Check if the URL contains a valid sign-in link
+if (isSignInWithEmailLink(auth, window.location.href)) {
+  let email = window.localStorage.getItem('emailForSignIn');
+  if (!email) {
+    email = prompt("Please enter your email for login:");
+  }
 
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
+  signInWithEmailLink(auth, email, window.location.href)
+    .then((result) => {
+      window.localStorage.removeItem('emailForSignIn');
       alert("Login successful!");
-      window.location.href = "home.html"; // your main site page
+      window.location.href = "home.html"; // Redirect to home or dashboard after sign-in
     })
     .catch((error) => {
-      alert("Login failed: " + error.message);
+      alert("Error signing in: " + error.message);
     });
-});
+}
