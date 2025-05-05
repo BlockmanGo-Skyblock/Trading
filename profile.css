@@ -1,0 +1,84 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  background: #1e1e2f;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.4);
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-size: 2em;
+  color: #bdbdfc;
+}
+
+input[type="text"] {
+  padding: 12px;
+  width: 90%;
+  border-radius: 10px;
+  border: none;
+  margin-bottom: 20px;
+  font-size: 1em;
+}
+
+.profile-options {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.profile-options label {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.profile-options label:hover {
+  transform: scale(1.05);
+}
+
+.profile-options input[type="radio"] {
+  display: none;
+}
+
+.profile-options img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  transition: 0.3s ease;
+}
+
+.profile-options input[type="radio"]:checked + img {
+  border-color: #9f73ff;
+  box-shadow: 0 0 10px #9f73ff;
+}
+
+button[type="submit"] {
+  padding: 12px 30px;
+  background: #9f73ff;
+  border: none;
+  color: white;
+  font-size: 1em;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #7e5dcc;
+}
