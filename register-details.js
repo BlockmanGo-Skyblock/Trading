@@ -1,10 +1,6 @@
 import { auth } from './firebase.js';
-import {
-  getFirestore, doc, setDoc, getDocs, query, collection, where
-} from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js';
-import {
-  getStorage, ref, uploadBytes, getDownloadURL
-} from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-storage.js';
+import { getFirestore, doc, setDoc, getDocs, query, collection, where } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-storage.js';
 import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js';
 
 const db = getFirestore();
@@ -13,18 +9,11 @@ const storage = getStorage();
 onAuthStateChanged(auth, (user) => {
   if (!user) {
     alert("Not logged in.");
-    window.location.href = "index.html";  // Redirect to login page if no user is logged in.
+    window.location.href = "index.html";  // Redirect to login page if no user is logged in
     return;
   }
 
-  // Check if email is verified
-  if (!user.emailVerified) {
-    alert("Please verify your email before proceeding.");
-    window.location.href = "verify-email.html";  // Redirect to email verification page
-    return;
-  }
-
-  // User is logged in and email is verified, continue with profile creation logic
+  // User is logged in, proceed with the profile setup
   document.getElementById("details-form").addEventListener("submit", async function (e) {
     e.preventDefault();  // Prevent default form submission
 
