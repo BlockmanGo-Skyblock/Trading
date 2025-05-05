@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trading Platform</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="navbar">
+    <button id="logout-btn">Logout</button>
+    <h2>Welcome to the Trading Platform</h2>
+    <button id="new-offer-btn">Post New Trade</button>
+  </div>
+
+  <div id="trade-offers">
+    <!-- Trade offers will be dynamically added here -->
+  </div>
+
+  <!-- Modal for creating new trade offer -->
+  <div id="new-trade-modal" class="modal">
+    <div class="modal-content">
+      <h3>Create a New Trade Offer</h3>
+      <form id="new-trade-form">
+        <input type="text" id="item-name" placeholder="Item Name" required>
+        <textarea id="description" placeholder="Description" required></textarea>
+        <input type="number" id="price" placeholder="Price (Optional)" required>
+        <button type="submit">Post Offer</button>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
