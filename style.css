@@ -1,87 +1,108 @@
-/* General Page Styles */
+/* General Body Styling */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f9;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  flex-direction: column;
-  text-align: center;
+    font-family: 'Roboto', sans-serif;
+    background-color: #1f1f2e; /* Dark background */
+    color: #ffffff; /* White text */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    flex-direction: column;
 }
 
-/* Title */
+/* Header Styling */
 h2 {
-  color: #333;
-  margin-bottom: 20px;
+    color: #fff;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    text-align: center;
 }
 
-/* Google Sign-In Button */
-#google-signin-btn {
-  background-color: #4285F4;
-  color: white;
-  border: none;
-  padding: 15px 30px;
-  font-size: 16px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-#google-signin-btn:hover {
-  background-color: #357ae8;
-}
-
-/* Input Fields and Button for the Register Details Page */
-input[type="text"],
-input[type="file"] {
-  padding: 10px;
-  font-size: 16px;
-  width: 100%;
-  max-width: 300px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-button[type="submit"] {
-  background-color: #4CAF50;
-  color: white;
-  padding: 12px 20px;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button[type="submit"]:hover {
-  background-color: #45a049;
-}
-
+/* Form Styling */
 form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    background: linear-gradient(45deg, rgba(29, 53, 87, 0.8), rgba(75, 0, 130, 0.8)); /* Dark gradient */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
 }
 
-label {
-  font-size: 18px;
-  margin: 10px 0;
+/* Input fields */
+input[type="text"], input[type="email"], input[type="password"], input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid #5f5f6e;
+    border-radius: 8px;
+    background-color: #2d2d3d;
+    color: #ffffff;
+    font-size: 1rem;
+    box-sizing: border-box;
 }
 
-h2 {
-  color: #333;
-  margin-bottom: 20px;
+/* Focus on input fields */
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, input[type="file"]:focus {
+    border-color: #9b59b6; /* Purple focus border */
+    outline: none;
 }
 
-/* Container for the Profile Setup Page */
-.profile-setup-container {
-  background-color: #fff;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
+/* Button Styling */
+button {
+    background: linear-gradient(45deg, #6a1b9a, #9b59b6); /* Purple gradient button */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 20px;
+    width: 100%;
+}
+
+/* Hover effect for the button */
+button:hover {
+    background: linear-gradient(45deg, #9b59b6, #6a1b9a);
+}
+
+/* Error message styling */
+.alert {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+/* Google sign-in button */
+#google-signin-btn {
+    background-color: #4285F4;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    margin-top: 15px;
+}
+
+/* Google button hover */
+#google-signin-btn:hover {
+    background-color: #357ae8;
+}
+
+/* Profile image upload button */
+input[type="file"] {
+    padding: 10px 0;
+    border: 2px solid #5f5f6e;
+    background-color: #2d2d3d;
+    color: #ffffff;
+}
+
+input[type="file"]:focus {
+    border-color: #9b59b6; /* Purple border on focus */
 }
